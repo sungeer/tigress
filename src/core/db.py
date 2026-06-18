@@ -59,6 +59,9 @@ def init():
 @contextmanager
 def raw():
     conn = sqlite3.connect(f'{settings.db_path}')
+    conn.execute('PRAGMA journal_mode=WAL')
+    conn.execute('PRAGMA synchronous=NORMAL')
+    conn.execute('PRAGMA journal_size_limit=67108864')
     conn.execute('PRAGMA busy_timeout=5000')
     conn.execute('PRAGMA cache_size=-20000')
     conn.execute('PRAGMA temp_store=MEMORY')
@@ -78,6 +81,9 @@ def raw():
 @contextmanager
 def connect():
     conn = sqlite3.connect(f'{settings.db_path}')
+    conn.execute('PRAGMA journal_mode=WAL')
+    conn.execute('PRAGMA synchronous=NORMAL')
+    conn.execute('PRAGMA journal_size_limit=67108864')
     conn.execute('PRAGMA busy_timeout=5000')
     conn.execute('PRAGMA cache_size=-20000')
     conn.execute('PRAGMA temp_store=MEMORY')
@@ -98,6 +104,9 @@ def connect():
 @contextmanager
 def begin():
     conn = sqlite3.connect(f'{settings.db_path}')
+    conn.execute('PRAGMA journal_mode=WAL')
+    conn.execute('PRAGMA synchronous=NORMAL')
+    conn.execute('PRAGMA journal_size_limit=67108864')
     conn.execute('PRAGMA busy_timeout=5000')
     conn.execute('PRAGMA cache_size=-20000')
     conn.execute('PRAGMA temp_store=MEMORY')
